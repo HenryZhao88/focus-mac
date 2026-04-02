@@ -118,7 +118,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             alert.addButton(withTitle: "Later")
             let response = alert.runModal()
             if response == .alertFirstButtonReturn {
-                NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!)
+                if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility") {
+                    NSWorkspace.shared.open(url)
+                }
             }
         }
     }
