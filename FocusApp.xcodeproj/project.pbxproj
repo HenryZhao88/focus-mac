@@ -12,7 +12,9 @@
 		0D52A51A7B47E56FF39832E4 /* NudgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16FC2E38C9E126378DEBB5D /* NudgeView.swift */; };
 		10838F21A8F1BA2BBB3A7839 /* EscalationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44F7463ECD13261F8325827 /* EscalationManager.swift */; };
 		10FB665F786996A3458919E7 /* FocusSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AB095DB6ACC184DDA323BF /* FocusSession.swift */; };
+		11068673606906B346923C69 /* WebSocketServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049E01AC349D3E2094C9D4AB /* WebSocketServer.swift */; };
 		17A450CABB5F095859F3B842 /* AppMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2199D30D4CFFD7C6CE87D751 /* AppMonitor.swift */; };
+		2B004309820152E6E14B3237 /* WebSocketServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C82422B2BD5EAB30571596F /* WebSocketServerTests.swift */; };
 		4924ABA7F3DAC6A0DDD5579A /* EscalationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66FECCB0037E278F47FEBF0 /* EscalationManagerTests.swift */; };
 		55111BFA5F80DF5FDDC41A1B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38478A0BCE2AD2FC38C58A0 /* Task.swift */; };
 		6F90BD817B209EF3CC0B545C /* MainWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDC5D3BE4121EEF4FE026CD /* MainWindowView.swift */; };
@@ -40,11 +42,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		049E01AC349D3E2094C9D4AB /* WebSocketServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketServer.swift; sourceTree = "<group>"; };
 		17E2FF148A09F85B67C525E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2199D30D4CFFD7C6CE87D751 /* AppMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMonitor.swift; sourceTree = "<group>"; };
 		233F012932ACA5D4D85D95CD /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
 		3193A8D7CC777A4A7596D083 /* FocusApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FocusApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32DD097121CD979EA4686F02 /* OverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		3C82422B2BD5EAB30571596F /* WebSocketServerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketServerTests.swift; sourceTree = "<group>"; };
 		41ADC7A9EB8FAB03DBA148A1 /* BlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
 		53FEA113B6469CDDD3868BC8 /* AISignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISignal.swift; sourceTree = "<group>"; };
 		5AA368B2E0E0F6F110E64C0C /* SessionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerTests.swift; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 				B44F7463ECD13261F8325827 /* EscalationManager.swift */,
 				812869CC816A54F1E214D5E9 /* SessionManager.swift */,
 				811B8528E1D403854892E755 /* TaskStore.swift */,
+				049E01AC349D3E2094C9D4AB /* WebSocketServer.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -134,6 +139,7 @@
 				95F7669E125B6D9A8852951C /* FocusAppTests.swift */,
 				5AA368B2E0E0F6F110E64C0C /* SessionManagerTests.swift */,
 				E82DBF699FC96B576E166519 /* TaskStoreTests.swift */,
+				3C82422B2BD5EAB30571596F /* WebSocketServerTests.swift */,
 			);
 			path = FocusAppTests;
 			sourceTree = "<group>";
@@ -240,6 +246,7 @@
 				7B90A5F7BD6E9F78496212AF /* SessionManager.swift in Sources */,
 				55111BFA5F80DF5FDDC41A1B /* Task.swift in Sources */,
 				FC4EDC93457DFDD9D560C4AD /* TaskStore.swift in Sources */,
+				11068673606906B346923C69 /* WebSocketServer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +259,7 @@
 				C2FBAC685DC3249691BDB25C /* FocusAppTests.swift in Sources */,
 				088D928739299D0ABC78EC00 /* SessionManagerTests.swift in Sources */,
 				B9E59400966CC483FF3F49FF /* TaskStoreTests.swift in Sources */,
+				2B004309820152E6E14B3237 /* WebSocketServerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
