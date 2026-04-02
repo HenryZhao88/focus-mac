@@ -2,11 +2,11 @@
 import Foundation
 
 struct FocusSession {
-    let task: Task
+    let task: FocusTask
     let startTime: Date
     var allowlist: Set<String>  // bundle IDs and hostnames
 
-    init(task: Task) {
+    init(task: FocusTask) {
         self.task = task
         self.startTime = Date()
         self.allowlist = []

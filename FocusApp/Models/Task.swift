@@ -1,7 +1,7 @@
 // FocusApp/Models/Task.swift
 import Foundation
 
-struct Task: Identifiable, Codable, Equatable {
+struct FocusTask: Identifiable, Codable, Equatable {
     let id: UUID
     var title: String
     var isComplete: Bool

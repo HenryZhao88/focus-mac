@@ -4,9 +4,9 @@ import XCTest
 
 final class TaskStoreTests: XCTestCase {
     func test_task_roundtripsJSON() throws {
-        let task = Task(title: "CS Homework")
+        let task = FocusTask(title: "CS Homework")
         let data = try JSONEncoder().encode(task)
-        let decoded = try JSONDecoder().decode(Task.self, from: data)
+        let decoded = try JSONDecoder().decode(FocusTask.self, from: data)
         XCTAssertEqual(decoded.id, task.id)
         XCTAssertEqual(decoded.title, "CS Homework")
         XCTAssertFalse(decoded.isComplete)
