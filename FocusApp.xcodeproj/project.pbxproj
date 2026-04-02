@@ -10,6 +10,10 @@
 		71F6398B6459CC83264AD2E3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0B39830029435A6963D6F0 /* Constants.swift */; };
 		A753AD260653977473757790 /* FocusAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE14446F0A7CACA48E3313D /* FocusAppApp.swift */; };
 		C2FBAC685DC3249691BDB25C /* FocusAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F7669E125B6D9A8852951C /* FocusAppTests.swift */; };
+		AA000001AA000001AA000001 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000002AA000002AA000002 /* Task.swift */; };
+		AA000003AA000003AA000003 /* AISignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000004AA000004AA000004 /* AISignal.swift */; };
+		AA000005AA000005AA000005 /* FocusSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000006AA000006AA000006 /* FocusSession.swift */; };
+		AA000007AA000007AA000007 /* TaskStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000008AA000008AA000008 /* TaskStoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,12 +33,19 @@
 		95F7669E125B6D9A8852951C /* FocusAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusAppTests.swift; sourceTree = "<group>"; };
 		BDE14446F0A7CACA48E3313D /* FocusAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusAppApp.swift; sourceTree = "<group>"; };
 		CA0973F43928AA7C174EAFB9 /* FocusAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FocusAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA000002AA000002AA000002 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		AA000004AA000004AA000004 /* AISignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISignal.swift; sourceTree = "<group>"; };
+		AA000006AA000006AA000006 /* FocusSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSession.swift; sourceTree = "<group>"; };
+		AA000008AA000008AA000008 /* TaskStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStoreTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		1F4DADC091C2B58136D95E7A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AA000002AA000002AA000002 /* Task.swift */,
+				AA000004AA000004AA000004 /* AISignal.swift */,
+				AA000006AA000006AA000006 /* FocusSession.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -83,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				95F7669E125B6D9A8852951C /* FocusAppTests.swift */,
+				AA000008AA000008AA000008 /* TaskStoreTests.swift */,
 			);
 			path = FocusAppTests;
 			sourceTree = "<group>";
@@ -176,6 +188,9 @@
 			files = (
 				71F6398B6459CC83264AD2E3 /* Constants.swift in Sources */,
 				A753AD260653977473757790 /* FocusAppApp.swift in Sources */,
+				AA000001AA000001AA000001 /* Task.swift in Sources */,
+				AA000003AA000003AA000003 /* AISignal.swift in Sources */,
+				AA000005AA000005AA000005 /* FocusSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2FBAC685DC3249691BDB25C /* FocusAppTests.swift in Sources */,
+				AA000007AA000007AA000007 /* TaskStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +237,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -313,6 +330,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
