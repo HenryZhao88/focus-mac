@@ -29,7 +29,7 @@ A macOS app that uses AI to keep you on task. You pick a task, start a focus ses
 ### 1. Generate the Xcode project
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/HenryZhao88/focus-mac
 cd FocusApp
 xcodegen generate
 ```
