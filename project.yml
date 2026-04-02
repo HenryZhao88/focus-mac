@@ -36,3 +36,12 @@ targets:
         MACOSX_DEPLOYMENT_TARGET: "13.0"
         PRODUCT_BUNDLE_IDENTIFIER: com.focusapp.FocusAppTests
         GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  FocusApp:
+    build:
+      targets:
+        FocusApp: all
+    run:
+      environmentVariables:
+        OPENAI_API_KEY: YOUR_OPENAI_API_KEY
