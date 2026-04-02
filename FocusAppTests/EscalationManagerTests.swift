@@ -19,6 +19,7 @@ final class MockAIService: AIServiceProtocol {
 final class MockAppMonitor: AppMonitorProtocol {
     var snapshot = ActivitySnapshot(appName: "YouTube", windowTitle: "Watch", bundleID: "com.google.youtube")
     func currentActivity() -> ActivitySnapshot { snapshot }
+    func frontScreenFrame() -> NSRect? { nil }
 }
 
 @MainActor

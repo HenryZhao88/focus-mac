@@ -38,6 +38,7 @@ struct MainWindowView: View {
                         ForEach(taskStore.tasks) { task in
                             TaskRowView(
                                 task: task,
+                                isSessionActive: sessionManager.isActive,
                                 isActiveSession: sessionManager.activeSession?.task.id == task.id,
                                 onFocus: { onStartFocus(task) }
                             )
@@ -80,6 +81,7 @@ struct MainWindowView: View {
 
 struct TaskRowView: View {
     let task: FocusTask
+    let isSessionActive: Bool
     let isActiveSession: Bool
     let onFocus: () -> Void
 
@@ -103,7 +105,7 @@ struct TaskRowView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.small)
-                .disabled(isActiveSession)
+                .disabled(isSessionActive)
             }
         }
         .padding(.horizontal, 12)

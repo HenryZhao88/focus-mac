@@ -11,10 +11,12 @@ struct ActivitySnapshot {
 protocol AppMonitorProtocol {
     func currentActivity() -> ActivitySnapshot
     func frontWindowFrame() -> NSRect?
+    func frontScreenFrame() -> NSRect?
 }
 
 extension AppMonitorProtocol {
     func frontWindowFrame() -> NSRect? { nil }
+    func frontScreenFrame() -> NSRect? { nil }
 }
 
 final class AppMonitor: AppMonitorProtocol {
@@ -49,10 +51,29 @@ final class AppMonitor: AppMonitorProtocol {
 
         let cgRect = CGRect(x: bounds["X"] ?? 0, y: bounds["Y"] ?? 0,
                             width: bounds["Width"] ?? 0, height: bounds["Height"] ?? 0)
-        guard let screenHeight = NSScreen.main?.frame.height else { return nil }
+        let desktopFrame = NSScreen.screens.map(\.frame).reduce(into: CGRect.null) { partial, frame in
+            partial = partial.union(frame)
+        }
+        guard !desktopFrame.isNull else { return nil }
         return NSRect(x: cgRect.origin.x,
-                      y: screenHeight - cgRect.origin.y - cgRect.height,
+                      y: desktopFrame.maxY - cgRect.origin.y - cgRect.height,
                       width: cgRect.width,
                       height: cgRect.height)
+    }
+
+    func frontScreenFrame() -> NSRect? {
+        guard let windowFrame = frontWindowFrame() else { return nil }
+
+        return NSScreen.screens
+            .max { lhs, rhs in
+                intersectionArea(windowFrame, lhs.frame) < intersectionArea(windowFrame, rhs.frame)
+            }?
+            .frame
+    }
+
+    private func intersectionArea(_ lhs: CGRect, _ rhs: CGRect) -> CGFloat {
+        let intersection = lhs.intersection(rhs)
+        guard !intersection.isNull else { return 0 }
+        return intersection.width * intersection.height
     }
 }

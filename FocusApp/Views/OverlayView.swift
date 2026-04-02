@@ -4,15 +4,18 @@ import SwiftUI
 struct OverlayView: View {
     @ObservedObject var escalationManager: EscalationManager
     @ObservedObject var sessionManager: SessionManager
+    let onStopFocus: () -> Void
+    let onCompleteFocus: () -> Void
 
     var body: some View {
         Group {
             switch escalationManager.state {
             case .monitoring:
-                SlimBarView(sessionManager: sessionManager, onEnd: {
-                    escalationManager.stopMonitoring()
-                    sessionManager.endSession()
-                })
+                SlimBarView(
+                    sessionManager: sessionManager,
+                    onStop: onStopFocus,
+                    onComplete: onCompleteFocus
+                )
             case .nudging(_, let appName):
                 NudgeView(
                     appName: appName,
@@ -27,7 +30,8 @@ struct OverlayView: View {
 
 struct SlimBarView: View {
     @ObservedObject var sessionManager: SessionManager
-    let onEnd: () -> Void
+    let onStop: () -> Void
+    let onComplete: () -> Void
 
     @State private var elapsed = ""
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -45,9 +49,13 @@ struct SlimBarView: View {
             Text(elapsed)
                 .font(.system(size: 11, design: .monospaced))
                 .foregroundColor(Color.white.opacity(0.5))
-            Button("■") { onEnd() }
+            Button("Stop") { onStop() }
                 .buttonStyle(.plain)
-                .font(.system(size: 10))
+                .font(.system(size: 11, weight: .medium))
+                .foregroundColor(Color.white.opacity(0.8))
+            Button("Stop & Complete") { onComplete() }
+                .buttonStyle(.plain)
+                .font(.system(size: 11, weight: .medium))
                 .foregroundColor(Color.white.opacity(0.5))
         }
         .padding(.horizontal, 14)
@@ -64,4 +72,3 @@ struct SlimBarView: View {
         }
     }
 }
-

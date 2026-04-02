@@ -40,16 +40,16 @@ function scheduleReconnect() {
 
 function send(url) {
   if (ws && ws.readyState === WebSocket.OPEN) {
-    ws.send(url || 'null');
+    ws.send(url || '');
   }
 }
 
 async function sendCurrentTab() {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    send(tab?.url || 'null');
+    send(tab?.url || '');
   } catch (e) {
-    send('null');
+    send('');
   }
 }
 

@@ -6,11 +6,21 @@ final class OverlayWindowController: NSWindowController {
     private var escalationManager: EscalationManager
     private var sessionManager: SessionManager
     private let appMonitor: AppMonitorProtocol
+    private let onStopFocus: () -> Void
+    private let onCompleteFocus: () -> Void
 
-    init(escalationManager: EscalationManager, sessionManager: SessionManager, appMonitor: AppMonitorProtocol = AppMonitor()) {
+    init(
+        escalationManager: EscalationManager,
+        sessionManager: SessionManager,
+        appMonitor: AppMonitorProtocol = AppMonitor(),
+        onStopFocus: @escaping () -> Void,
+        onCompleteFocus: @escaping () -> Void
+    ) {
         self.escalationManager = escalationManager
         self.sessionManager = sessionManager
         self.appMonitor = appMonitor
+        self.onStopFocus = onStopFocus
+        self.onCompleteFocus = onCompleteFocus
 
         let panel = NSPanel(
             contentRect: NSRect(x: 0, y: 0, width: 320, height: 48),
@@ -27,7 +37,12 @@ final class OverlayWindowController: NSWindowController {
 
         super.init(window: panel)
 
-        let rootView = OverlayView(escalationManager: escalationManager, sessionManager: sessionManager)
+        let rootView = OverlayView(
+            escalationManager: escalationManager,
+            sessionManager: sessionManager,
+            onStopFocus: onStopFocus,
+            onCompleteFocus: onCompleteFocus
+        )
         panel.contentView = NSHostingView(rootView: rootView)
         positionAtTopCenter()
     }
@@ -38,11 +53,12 @@ final class OverlayWindowController: NSWindowController {
     func hide() { window?.orderOut(nil) }
 
     func expandForNudge() {
-        guard let screen = NSScreen.main, let panel = window else { return }
+        guard let panel = window,
+              let screenFrame = appMonitor.frontScreenFrame() ?? NSScreen.main?.frame else { return }
         let w: CGFloat = 320
         let h: CGFloat = 120
-        let x = screen.frame.midX - w / 2
-        let y = screen.frame.maxY - h - 8
+        let x = screenFrame.midX - w / 2
+        let y = screenFrame.maxY - h - 8
         NSAnimationContext.runAnimationGroup { ctx in
             ctx.duration = 0.25
             panel.animator().setFrame(NSRect(x: x, y: y, width: w, height: h), display: true)
@@ -50,10 +66,11 @@ final class OverlayWindowController: NSWindowController {
     }
 
     func expandForBlock() {
-        guard let screen = NSScreen.main, let panel = window else { return }
+        guard let panel = window,
+              let screenFrame = appMonitor.frontScreenFrame() ?? NSScreen.main?.frame else { return }
         let targetFrame = appMonitor.frontWindowFrame() ?? NSRect(
-            x: screen.frame.midX - 300,
-            y: screen.frame.midY - 200,
+            x: screenFrame.midX - 300,
+            y: screenFrame.midY - 200,
             width: 600,
             height: 400
         )
@@ -68,11 +85,12 @@ final class OverlayWindowController: NSWindowController {
     }
 
     private func positionAtTopCenter() {
-        guard let screen = NSScreen.main, let panel = window else { return }
+        guard let panel = window,
+              let screenFrame = appMonitor.frontScreenFrame() ?? NSScreen.main?.frame else { return }
         let w: CGFloat = 320
         let h: CGFloat = 48
-        let x = screen.frame.midX - w / 2
-        let y = screen.frame.maxY - h - 8
+        let x = screenFrame.midX - w / 2
+        let y = screenFrame.maxY - h - 8
         NSAnimationContext.runAnimationGroup { ctx in
             ctx.duration = 0.25
             panel.animator().setFrame(NSRect(x: x, y: y, width: w, height: h), display: true)

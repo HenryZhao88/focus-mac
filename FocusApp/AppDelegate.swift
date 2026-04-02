@@ -18,7 +18,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - UI
     private var overlayController: OverlayWindowController?
     // MARK: - Combine
-    private var lastSession: FocusSession?
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: - NSApplicationDelegate
@@ -40,7 +39,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         overlayController = OverlayWindowController(
             escalationManager: escalationManager,
             sessionManager: sessionManager,
-            appMonitor: appMonitor
+            appMonitor: appMonitor,
+            onStopFocus: { [weak self] in
+                guard let self else { return }
+                self.escalationManager.stopMonitoring()
+                self.sessionManager.endSession()
+            },
+            onCompleteFocus: { [weak self] in
+                guard let self, let task = self.sessionManager.activeSession?.task else { return }
+                self.taskStore.markComplete(id: task.id)
+                self.escalationManager.stopMonitoring()
+                self.sessionManager.endSession()
+            }
         )
 
         // 3. Observe EscalationState to resize overlay
@@ -55,7 +65,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if Constants.openAIAPIKey.isEmpty {
             let alert = NSAlert()
             alert.messageText = "API Key Missing"
-            alert.informativeText = "Set ANTHROPIC_API_KEY in your environment to enable AI monitoring."
+            alert.informativeText = "Set OPENAI_API_KEY in your environment or .env file to enable AI monitoring."
             alert.alertStyle = .warning
             alert.addButton(withTitle: "OK")
             alert.runModal()
@@ -76,16 +86,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .receive(on: RunLoop.main)
             .sink { [weak self] session in
                 guard let self else { return }
-                if let session {
-                    self.lastSession = session
+                if session != nil {
                     self.overlayController?.show()
                     self.escalationManager.startMonitoring()
                 } else {
-                    // Session ended — mark the task complete
-                    if let completedTask = self.lastSession?.task {
-                        self.taskStore.markComplete(id: completedTask.id)
-                    }
-                    self.lastSession = nil
                     self.overlayController?.hide()
                     self.escalationManager.stopMonitoring()
                 }

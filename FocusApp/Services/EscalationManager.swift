@@ -28,6 +28,10 @@ final class EscalationManager: ObservableObject {
     }
 
     func startMonitoring() {
+        monitorTimer?.invalidate()
+        nudgeTimer?.invalidate()
+        nudgeTimer = nil
+        state = .monitoring
         monitorTimer = Timer.scheduledTimer(withTimeInterval: Constants.monitorIntervalSeconds, repeats: true) { [weak self] _ in
             Task { await self?.runCheck() }
         }
