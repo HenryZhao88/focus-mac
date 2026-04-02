@@ -13,6 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let ai = AIService(apiKey: Constants.openAIAPIKey)
     private var escalationManager: EscalationManager!
     private var wsServer: WebSocketServer?
+    private let blocklistManager = BlocklistManager()
 
     // MARK: - UI
     private var mainWindow: NSWindow?
@@ -95,18 +96,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 if session != nil {
                     self.overlayController?.show()
                     self.escalationManager.startMonitoring()
+                    self.blocklistManager.activate()
                 } else {
                     self.overlayController?.hide()
                     self.escalationManager.stopMonitoring()
+                    self.blocklistManager.deactivate()
                 }
             }
             .store(in: &cancellables)
+
+        // 8. Clean up any /etc/hosts entries left by a previous crash
+        if BlocklistManager.hasStaleEntries() {
+            blocklistManager.deactivate()
+        }
     }
 
     func applicationWillTerminate(_ notification: Notification) {
         wsServer?.stop()
         escalationManager?.stopMonitoring()
         accessibilityPollTimer?.invalidate()
+        blocklistManager.deactivate()
     }
 
     func applicationDidBecomeActive(_ notification: Notification) {
