@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03AC3771F9BC31C6F624A320 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233F012932ACA5D4D85D95CD /* AIService.swift */; };
 		088D928739299D0ABC78EC00 /* SessionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA368B2E0E0F6F110E64C0C /* SessionManagerTests.swift */; };
 		10FB665F786996A3458919E7 /* FocusSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AB095DB6ACC184DDA323BF /* FocusSession.swift */; };
 		17A450CABB5F095859F3B842 /* AppMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2199D30D4CFFD7C6CE87D751 /* AppMonitor.swift */; };
@@ -15,6 +16,7 @@
 		71F6398B6459CC83264AD2E3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0B39830029435A6963D6F0 /* Constants.swift */; };
 		7B90A5F7BD6E9F78496212AF /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812869CC816A54F1E214D5E9 /* SessionManager.swift */; };
 		7D27E767EF4C3A79DDC91DC0 /* AISignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FEA113B6469CDDD3868BC8 /* AISignal.swift */; };
+		9E3620EBAFA02F3AB3453713 /* AIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DCBB9075CF77450A90173E /* AIServiceTests.swift */; };
 		A753AD260653977473757790 /* FocusAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE14446F0A7CACA48E3313D /* FocusAppApp.swift */; };
 		B9E59400966CC483FF3F49FF /* TaskStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82DBF699FC96B576E166519 /* TaskStoreTests.swift */; };
 		C2FBAC685DC3249691BDB25C /* FocusAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F7669E125B6D9A8852951C /* FocusAppTests.swift */; };
@@ -34,10 +36,12 @@
 /* Begin PBXFileReference section */
 		17E2FF148A09F85B67C525E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2199D30D4CFFD7C6CE87D751 /* AppMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMonitor.swift; sourceTree = "<group>"; };
+		233F012932ACA5D4D85D95CD /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
 		3193A8D7CC777A4A7596D083 /* FocusApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FocusApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53FEA113B6469CDDD3868BC8 /* AISignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISignal.swift; sourceTree = "<group>"; };
 		5AA368B2E0E0F6F110E64C0C /* SessionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerTests.swift; sourceTree = "<group>"; };
 		6C0B39830029435A6963D6F0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		71DCBB9075CF77450A90173E /* AIServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIServiceTests.swift; sourceTree = "<group>"; };
 		811B8528E1D403854892E755 /* TaskStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStore.swift; sourceTree = "<group>"; };
 		812869CC816A54F1E214D5E9 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		8BDC5D3BE4121EEF4FE026CD /* MainWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowView.swift; sourceTree = "<group>"; };
@@ -71,6 +75,7 @@
 		2C7EA1E2DF5EAD7B4D255BD9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				233F012932ACA5D4D85D95CD /* AIService.swift */,
 				2199D30D4CFFD7C6CE87D751 /* AppMonitor.swift */,
 				812869CC816A54F1E214D5E9 /* SessionManager.swift */,
 				811B8528E1D403854892E755 /* TaskStore.swift */,
@@ -107,6 +112,7 @@
 		DF3D2C079E106307EDF8ADD9 /* FocusAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				71DCBB9075CF77450A90173E /* AIServiceTests.swift */,
 				95F7669E125B6D9A8852951C /* FocusAppTests.swift */,
 				5AA368B2E0E0F6F110E64C0C /* SessionManagerTests.swift */,
 				E82DBF699FC96B576E166519 /* TaskStoreTests.swift */,
@@ -201,6 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03AC3771F9BC31C6F624A320 /* AIService.swift in Sources */,
 				7D27E767EF4C3A79DDC91DC0 /* AISignal.swift in Sources */,
 				17A450CABB5F095859F3B842 /* AppMonitor.swift in Sources */,
 				71F6398B6459CC83264AD2E3 /* Constants.swift in Sources */,
@@ -217,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E3620EBAFA02F3AB3453713 /* AIServiceTests.swift in Sources */,
 				C2FBAC685DC3249691BDB25C /* FocusAppTests.swift in Sources */,
 				088D928739299D0ABC78EC00 /* SessionManagerTests.swift in Sources */,
 				B9E59400966CC483FF3F49FF /* TaskStoreTests.swift in Sources */,
