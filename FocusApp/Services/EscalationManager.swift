@@ -67,8 +67,8 @@ final class EscalationManager: ObservableObject {
             case .approved:
                 if let bundleID = activity.bundleID { sessionManager.addToAllowlist(bundleID) }
                 if let url = currentURL, let host = URL(string: url)?.host { sessionManager.addToAllowlist(host) }
-                state = .monitoring
                 nudgeTimer?.invalidate()
+                state = .monitoring
             case .denied:
                 // Reset the grace period so user gets another 2 minutes before hard block
                 nudgeTimer?.invalidate()
@@ -113,7 +113,7 @@ final class EscalationManager: ObservableObject {
 
     private func scheduleEscalation() {
         nudgeTimer = Timer.scheduledTimer(withTimeInterval: nudgeGracePeriod, repeats: false) { [weak self] _ in
-            DispatchQueue.main.async { self?.state = .blocking }
+            Task { @MainActor [weak self] in self?.state = .blocking }
         }
     }
 }
