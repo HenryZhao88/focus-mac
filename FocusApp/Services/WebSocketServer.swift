@@ -28,6 +28,7 @@ final class WebSocketServer {
         params.defaultProtocolStack.applicationProtocols.insert(wsOptions, at: 0)
 
         guard let listener = try? NWListener(using: params, on: NWEndpoint.Port(rawValue: Constants.wsPort)!) else {
+            print("[WebSocketServer] Failed to create listener on port \(Constants.wsPort)")
             return
         }
         self.listener = listener
@@ -42,18 +43,21 @@ final class WebSocketServer {
         }
 
         listener.stateUpdateHandler = { state in
-            // No-op for now; listener manages its own lifecycle
-            _ = state
+            if case .failed(let error) = state {
+                print("[WebSocketServer] Listener failed: \(error)")
+            }
         }
 
         listener.start(queue: wsQueue)
     }
 
     func stop() {
+        wsQueue.async { [weak self] in
+            self?.connection?.cancel()
+            self?.connection = nil
+        }
         listener?.cancel()
         listener = nil
-        connection?.cancel()
-        connection = nil
     }
 
     // MARK: - Receiving
@@ -64,7 +68,7 @@ final class WebSocketServer {
 
             // Check connection state — fire nil callback on disconnect/failure
             if let error = error {
-                _ = error
+                print("[WebSocketServer] Receive error: \(error)")
                 self.fireCallback(nil)
                 return
             }
@@ -79,14 +83,8 @@ final class WebSocketServer {
                 self.fireCallback(url.isEmpty ? nil : url)
             }
 
-            // Check if we should keep looping (connection still alive)
-            switch conn.state {
-            case .cancelled, .failed:
-                self.fireCallback(nil)
-            default:
-                // Continue receiving
-                self.receive(on: conn)
-            }
+            // Continue receiving
+            self.receive(on: conn)
         }
     }
 
