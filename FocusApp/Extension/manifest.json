@@ -3,7 +3,7 @@
   "name": "Focus Guard",
   "version": "1.0",
   "description": "Sends your current tab URL to the Focus app for monitoring.",
-  "permissions": ["tabs", "activeTab"],
+  "permissions": ["tabs", "activeTab", "windows", "storage"],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js"

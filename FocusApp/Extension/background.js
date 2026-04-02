@@ -13,6 +13,7 @@ function connect() {
   ws.onopen = () => {
     console.log('[FocusGuard] Connected to Focus app');
     backoff = 1000;
+    chrome.storage.session.set({ backoff: 1000 });
     sendCurrentTab();
   };
 
@@ -22,16 +23,19 @@ function connect() {
   };
 
   ws.onerror = (err) => {
+    // onerror always fires before onclose; reconnect is handled in onclose only
     console.log('[FocusGuard] WebSocket error:', err);
   };
 }
 
 function scheduleReconnect() {
   clearTimeout(reconnectTimer);
-  reconnectTimer = setTimeout(() => {
-    backoff = Math.min(backoff * 2, MAX_BACKOFF);
-    connect();
-  }, backoff);
+  chrome.storage.session.get(['backoff'], (result) => {
+    const stored = result.backoff || backoff;
+    backoff = Math.min(stored * 2, MAX_BACKOFF);
+    chrome.storage.session.set({ backoff });
+    reconnectTimer = setTimeout(connect, backoff);
+  });
 }
 
 function send(url) {
@@ -69,6 +73,6 @@ connect();
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'getStatus') {
     sendResponse({ connected: ws?.readyState === WebSocket.OPEN });
+    return true;
   }
-  return true;
 });
