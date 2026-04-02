@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		088D928739299D0ABC78EC00 /* SessionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA368B2E0E0F6F110E64C0C /* SessionManagerTests.swift */; };
 		10FB665F786996A3458919E7 /* FocusSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AB095DB6ACC184DDA323BF /* FocusSession.swift */; };
+		17A450CABB5F095859F3B842 /* AppMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2199D30D4CFFD7C6CE87D751 /* AppMonitor.swift */; };
 		55111BFA5F80DF5FDDC41A1B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38478A0BCE2AD2FC38C58A0 /* Task.swift */; };
 		6F90BD817B209EF3CC0B545C /* MainWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDC5D3BE4121EEF4FE026CD /* MainWindowView.swift */; };
 		71F6398B6459CC83264AD2E3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0B39830029435A6963D6F0 /* Constants.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		17E2FF148A09F85B67C525E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2199D30D4CFFD7C6CE87D751 /* AppMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMonitor.swift; sourceTree = "<group>"; };
 		3193A8D7CC777A4A7596D083 /* FocusApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FocusApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53FEA113B6469CDDD3868BC8 /* AISignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISignal.swift; sourceTree = "<group>"; };
 		5AA368B2E0E0F6F110E64C0C /* SessionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerTests.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 		2C7EA1E2DF5EAD7B4D255BD9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				2199D30D4CFFD7C6CE87D751 /* AppMonitor.swift */,
 				812869CC816A54F1E214D5E9 /* SessionManager.swift */,
 				811B8528E1D403854892E755 /* TaskStore.swift */,
 			);
@@ -199,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D27E767EF4C3A79DDC91DC0 /* AISignal.swift in Sources */,
+				17A450CABB5F095859F3B842 /* AppMonitor.swift in Sources */,
 				71F6398B6459CC83264AD2E3 /* Constants.swift in Sources */,
 				A753AD260653977473757790 /* FocusAppApp.swift in Sources */,
 				10FB665F786996A3458919E7 /* FocusSession.swift in Sources */,
