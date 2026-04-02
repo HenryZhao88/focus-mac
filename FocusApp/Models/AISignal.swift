@@ -1,7 +1,7 @@
 // FocusApp/Models/AISignal.swift
 import Foundation
 
-enum AISignal: String {
+enum AISignal: String, Codable {
     case onTask = "on_task"
     case drifting = "drifting"
     case offTask = "off_task"

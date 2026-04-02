@@ -1,7 +1,7 @@
 // FocusApp/Models/FocusSession.swift
 import Foundation
 
-struct FocusSession {
+struct FocusSession: Equatable, Codable {
     let task: FocusTask
     let startTime: Date
     var allowlist: Set<String>  // bundle IDs and hostnames
@@ -17,8 +17,9 @@ struct FocusSession {
     }
 
     var elapsedFormatted: String {
-        let minutes = Int(elapsed) / 60
-        let seconds = Int(elapsed) % 60
+        let t = elapsed
+        let minutes = Int(t) / 60
+        let seconds = Int(t) % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
 }
