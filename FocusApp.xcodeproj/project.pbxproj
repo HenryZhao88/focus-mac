@@ -18,9 +18,11 @@
 		71F6398B6459CC83264AD2E3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0B39830029435A6963D6F0 /* Constants.swift */; };
 		7B90A5F7BD6E9F78496212AF /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812869CC816A54F1E214D5E9 /* SessionManager.swift */; };
 		7D27E767EF4C3A79DDC91DC0 /* AISignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FEA113B6469CDDD3868BC8 /* AISignal.swift */; };
+		7DEABB36EAA0412F3657FB15 /* OverlayWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F329EDBED7D835201678ACC0 /* OverlayWindowController.swift */; };
 		9E3620EBAFA02F3AB3453713 /* AIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DCBB9075CF77450A90173E /* AIServiceTests.swift */; };
 		A753AD260653977473757790 /* FocusAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE14446F0A7CACA48E3313D /* FocusAppApp.swift */; };
 		B9E59400966CC483FF3F49FF /* TaskStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82DBF699FC96B576E166519 /* TaskStoreTests.swift */; };
+		BDF3842D4AAAAC0D3B114B08 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DD097121CD979EA4686F02 /* OverlayView.swift */; };
 		C2FBAC685DC3249691BDB25C /* FocusAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F7669E125B6D9A8852951C /* FocusAppTests.swift */; };
 		FC4EDC93457DFDD9D560C4AD /* TaskStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B8528E1D403854892E755 /* TaskStore.swift */; };
 /* End PBXBuildFile section */
@@ -40,6 +42,7 @@
 		2199D30D4CFFD7C6CE87D751 /* AppMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMonitor.swift; sourceTree = "<group>"; };
 		233F012932ACA5D4D85D95CD /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
 		3193A8D7CC777A4A7596D083 /* FocusApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FocusApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		32DD097121CD979EA4686F02 /* OverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		53FEA113B6469CDDD3868BC8 /* AISignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISignal.swift; sourceTree = "<group>"; };
 		5AA368B2E0E0F6F110E64C0C /* SessionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerTests.swift; sourceTree = "<group>"; };
 		6C0B39830029435A6963D6F0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -54,6 +57,7 @@
 		CA0973F43928AA7C174EAFB9 /* FocusAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FocusAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E82DBF699FC96B576E166519 /* TaskStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStoreTests.swift; sourceTree = "<group>"; };
 		F1AB095DB6ACC184DDA323BF /* FocusSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSession.swift; sourceTree = "<group>"; };
+		F329EDBED7D835201678ACC0 /* OverlayWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayWindowController.swift; sourceTree = "<group>"; };
 		F38478A0BCE2AD2FC38C58A0 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,6 +96,8 @@
 			isa = PBXGroup;
 			children = (
 				8BDC5D3BE4121EEF4FE026CD /* MainWindowView.swift */,
+				32DD097121CD979EA4686F02 /* OverlayView.swift */,
+				F329EDBED7D835201678ACC0 /* OverlayWindowController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -221,6 +227,8 @@
 				A753AD260653977473757790 /* FocusAppApp.swift in Sources */,
 				10FB665F786996A3458919E7 /* FocusSession.swift in Sources */,
 				6F90BD817B209EF3CC0B545C /* MainWindowView.swift in Sources */,
+				BDF3842D4AAAAC0D3B114B08 /* OverlayView.swift in Sources */,
+				7DEABB36EAA0412F3657FB15 /* OverlayWindowController.swift in Sources */,
 				7B90A5F7BD6E9F78496212AF /* SessionManager.swift in Sources */,
 				55111BFA5F80DF5FDDC41A1B /* Task.swift in Sources */,
 				FC4EDC93457DFDD9D560C4AD /* TaskStore.swift in Sources */,
