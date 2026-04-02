@@ -1,11 +1,16 @@
 # Environment / secrets
+.claude/
+.superpowers/
+docs/
 .env
+.DS_Store
 
 # Xcode
 *.xcuserstate
 xcuserdata/
 DerivedData/
 *.xcworkspace/xcuserdata/
+FocusApp.xcodeproj/
 
 # Build
 build/
