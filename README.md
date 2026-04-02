@@ -69,9 +69,16 @@ open build/Debug/FocusApp.app
 
 ## Browser Extension (Optional)
 
-The optional browser extension sends your active tab URL to Focus over a local WebSocket on port `54321`. Without it, Focus still monitors all apps using window titles — the extension just gives more accurate decisions for browser tabs.
+A Chrome extension is included at `FocusApp/Extension/`. It connects to the Focus app over a local WebSocket and sends your active tab URL automatically — no polling, it fires instantly on tab switches, URL changes, and window focus changes. Without it, Focus still monitors all apps using window titles; the extension just gives the AI more context when you're in a browser.
 
-To connect an extension, send the current URL as a plain text WebSocket message to `ws://localhost:54321` whenever the active tab changes. Send an empty string or close the connection when the browser loses focus.
+### Installing the extension
+
+1. Open Chrome and go to `chrome://extensions`
+2. Enable **Developer mode** (top right)
+3. Click **Load unpacked** and select the `FocusApp/Extension` folder
+4. The Focus Guard icon will appear in your toolbar — a green dot means it's connected to the app
+
+The extension reconnects automatically with exponential backoff if the Focus app isn't running yet.
 
 ---
 
@@ -131,6 +138,11 @@ FocusApp/
 │   └── OverlayWindowController.swift  # Manages the floating overlay window
 └── Utilities/
     └── Constants.swift         # Ports, intervals, model name, API key loading
+└── Extension/                  # Chrome extension (Manifest V3)
+    ├── manifest.json           # Permissions: tabs, activeTab, windows, storage
+    ├── background.js           # WebSocket client — pushes URL on tab/window events
+    ├── popup.html              # Toolbar popup
+    └── popup.js                # Shows connected/disconnected status
 ```
 
 ---
