@@ -5,9 +5,9 @@ enum Constants {
     static let wsPort: UInt16 = 54321
     static let monitorIntervalSeconds: TimeInterval = 10
     static let nudgeGracePeriodSeconds: TimeInterval = 120  // 2 minutes
-    static let claudeModel = "claude-haiku-4-5-20251001"
-    static let claudeAPIURL = "https://api.anthropic.com/v1/messages"
-    static let claudeAPIKey: String = {
-        ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"] ?? ""
+    static let openAIModel = "gpt-4.1"
+    static let openAIAPIURL = "https://api.openai.com/v1/chat/completions"
+    static let openAIAPIKey: String = {
+        ProcessInfo.processInfo.environment["OPENAI_API_KEY"] ?? ""
     }()
 }

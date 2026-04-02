@@ -11,7 +11,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let taskStore = TaskStore()
     private let sessionManager = SessionManager()
     private let appMonitor = AppMonitor()
-    private let ai = AIService(apiKey: Constants.claudeAPIKey)
+    private let ai = AIService(apiKey: Constants.openAIAPIKey)
     private var escalationManager: EscalationManager!
     private var wsServer: WebSocketServer?
 
@@ -52,7 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .store(in: &cancellables)
 
         // 4. Warn if API key is missing
-        if Constants.claudeAPIKey.isEmpty {
+        if Constants.openAIAPIKey.isEmpty {
             let alert = NSAlert()
             alert.messageText = "API Key Missing"
             alert.informativeText = "Set ANTHROPIC_API_KEY in your environment to enable AI monitoring."

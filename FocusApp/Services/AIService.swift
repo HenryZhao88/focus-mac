@@ -66,24 +66,25 @@ final class AIService: AIServiceProtocol {
     // MARK: - Network
 
     private func callAPI(system: String, user: String, maxTokens: Int) async throws -> String {
-        guard let url = URL(string: Constants.claudeAPIURL) else { throw AIError.invalidURL }
+        guard let url = URL(string: Constants.openAIAPIURL) else { throw AIError.invalidURL }
         var req = URLRequest(url: url)
         req.httpMethod = "POST"
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        req.setValue(apiKey, forHTTPHeaderField: "x-api-key")
-        req.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
+        req.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         req.httpBody = try JSONSerialization.data(withJSONObject: [
-            "model": Constants.claudeModel,
+            "model": Constants.openAIModel,
             "max_tokens": maxTokens,
-            "system": system,
-            "messages": [["role": "user", "content": user]]
+            "messages": [
+                ["role": "system", "content": system],
+                ["role": "user", "content": user]
+            ]
         ])
         let (data, response) = try await URLSession.shared.data(for: req)
         guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
             throw AIError.apiError((response as? HTTPURLResponse)?.statusCode ?? 0)
         }
         guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-              let content = (json["content"] as? [[String: Any]])?.first?["text"] as? String else {
+              let content = ((json["choices"] as? [[String: Any]])?.first?["message"] as? [String: Any])?["content"] as? String else {
             throw AIError.malformedResponse
         }
         return content
