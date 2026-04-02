@@ -65,22 +65,3 @@ struct SlimBarView: View {
     }
 }
 
-// MARK: - Stubs (replaced in Task 10)
-struct NudgeView: View {
-    let appName: String
-    @ObservedObject var escalationManager: EscalationManager
-    var body: some View {
-        Text("Nudge: \(appName)")
-            .foregroundColor(.orange)
-            .padding()
-    }
-}
-
-struct BlockView: View {
-    @ObservedObject var escalationManager: EscalationManager
-    var body: some View {
-        Text("Blocked")
-            .foregroundColor(.red)
-            .padding()
-    }
-}
