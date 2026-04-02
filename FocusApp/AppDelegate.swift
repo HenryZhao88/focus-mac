@@ -1,5 +1,6 @@
 // FocusApp/AppDelegate.swift
 import AppKit
+import ApplicationServices
 import Combine
 import SwiftUI
 
@@ -17,11 +18,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - UI
     private var overlayController: OverlayWindowController?
     // MARK: - Combine
+    private var lastSession: FocusSession?
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: - NSApplicationDelegate
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        requestAccessibilityIfNeeded()
+
         // 0. Initialize @MainActor-isolated service on main thread
         escalationManager = EscalationManager(
             ai: ai,
@@ -72,10 +76,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .receive(on: RunLoop.main)
             .sink { [weak self] session in
                 guard let self else { return }
-                if session != nil {
+                if let session {
+                    self.lastSession = session
                     self.overlayController?.show()
                     self.escalationManager.startMonitoring()
                 } else {
+                    // Session ended — mark the task complete
+                    if let completedTask = self.lastSession?.task {
+                        self.taskStore.markComplete(id: completedTask.id)
+                    }
+                    self.lastSession = nil
                     self.overlayController?.hide()
                     self.escalationManager.stopMonitoring()
                 }
@@ -93,6 +103,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     // MARK: - Private
+
+    private func requestAccessibilityIfNeeded() {
+        let trusted = AXIsProcessTrusted()
+        if !trusted {
+            let options = [kAXTrustedCheckOptionPrompt.takeRetainedValue(): true] as CFDictionary
+            AXIsProcessTrustedWithOptions(options)
+
+            let alert = NSAlert()
+            alert.messageText = "Accessibility Access Required"
+            alert.informativeText = "Focus needs Accessibility access to monitor which app you're using. Please enable it in System Settings → Privacy & Security → Accessibility, then relaunch Focus."
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: "Open System Settings")
+            alert.addButton(withTitle: "Later")
+            let response = alert.runModal()
+            if response == .alertFirstButtonReturn {
+                NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!)
+            }
+        }
+    }
 
     private func setupMainWindow() {
         let contentView = MainWindowView(
