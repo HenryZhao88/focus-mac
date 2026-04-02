@@ -32,6 +32,7 @@ final class EscalationManager: ObservableObject {
         nudgeTimer?.invalidate()
         nudgeTimer = nil
         state = .monitoring
+        Task { await runCheck() }
         monitorTimer = Timer.scheduledTimer(withTimeInterval: Constants.monitorIntervalSeconds, repeats: true) { [weak self] _ in
             Task { await self?.runCheck() }
         }
@@ -47,6 +48,8 @@ final class EscalationManager: ObservableObject {
 
     func updateCurrentURL(_ url: String?) {
         currentURL = url
+        guard sessionManager.isActive else { return }
+        Task { await runCheck() }
     }
 
     func dismissNudge() {
@@ -69,8 +72,13 @@ final class EscalationManager: ObservableObject {
             )
             switch decision {
             case .approved:
-                if let bundleID = activity.bundleID { sessionManager.addToAllowlist(bundleID) }
-                if let url = currentURL, let host = URL(string: url)?.host { sessionManager.addToAllowlist(host) }
+                if let url = currentURL, let host = URL(string: url)?.host {
+                    // Browser: allowlist just this site, not the whole browser
+                    sessionManager.addToAllowlist(host)
+                } else if let bundleID = activity.bundleID {
+                    // Non-browser app: allowlist the whole app
+                    sessionManager.addToAllowlist(bundleID)
+                }
                 nudgeTimer?.invalidate()
                 state = .monitoring
             case .denied:

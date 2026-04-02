@@ -5,6 +5,7 @@ struct MainWindowView: View {
     @ObservedObject var taskStore: TaskStore
     @ObservedObject var sessionManager: SessionManager
     var onStartFocus: (FocusTask) -> Void
+    var onToggleComplete: (FocusTask) -> Void
 
     @State private var newTaskTitle = ""
 
@@ -40,7 +41,9 @@ struct MainWindowView: View {
                                 task: task,
                                 isSessionActive: sessionManager.isActive,
                                 isActiveSession: sessionManager.activeSession?.task.id == task.id,
-                                onFocus: { onStartFocus(task) }
+                                onToggleComplete: { onToggleComplete(task) },
+                                onFocus: { onStartFocus(task) },
+                                onDelete: { taskStore.remove(id: task.id) }
                             )
                         }
                     }
@@ -83,13 +86,18 @@ struct TaskRowView: View {
     let task: FocusTask
     let isSessionActive: Bool
     let isActiveSession: Bool
+    let onToggleComplete: () -> Void
     let onFocus: () -> Void
+    let onDelete: () -> Void
 
     var body: some View {
         HStack(spacing: 10) {
-            Image(systemName: task.isComplete ? "checkmark.square.fill" : "square")
-                .foregroundColor(task.isComplete ? .secondary : .primary)
-                .font(.system(size: 14))
+            Button(action: onToggleComplete) {
+                Image(systemName: task.isComplete ? "checkmark.square.fill" : "square")
+                    .foregroundColor(task.isComplete ? .secondary : .primary)
+                    .font(.system(size: 14))
+            }
+            .buttonStyle(.plain)
 
             Text(task.title)
                 .font(.callout)
@@ -114,5 +122,8 @@ struct TaskRowView: View {
             RoundedRectangle(cornerRadius: 8)
                 .fill(isActiveSession ? Color.accentColor.opacity(0.1) : Color(NSColor.controlBackgroundColor))
         )
+        .contextMenu {
+            Button("Delete", role: .destructive, action: onDelete)
+        }
     }
 }

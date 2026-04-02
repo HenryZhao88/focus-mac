@@ -16,6 +16,7 @@ targets:
           - "**/*.entitlements"
     settings:
       base:
+        CONFIGURATION_BUILD_DIR: $(SRCROOT)/build/$(CONFIGURATION)
         SWIFT_VERSION: "5.9"
         MACOSX_DEPLOYMENT_TARGET: "13.0"
         INFOPLIST_FILE: FocusApp/Info.plist
@@ -32,6 +33,7 @@ targets:
       - target: FocusApp
     settings:
       base:
+        CONFIGURATION_BUILD_DIR: $(SRCROOT)/build/$(CONFIGURATION)
         SWIFT_VERSION: "5.9"
         MACOSX_DEPLOYMENT_TARGET: "13.0"
         PRODUCT_BUNDLE_IDENTIFIER: com.focusapp.FocusAppTests

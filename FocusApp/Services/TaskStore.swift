@@ -28,6 +28,14 @@ final class TaskStore: ObservableObject {
         save()
     }
 
+    @discardableResult
+    func toggleComplete(id: UUID) -> FocusTask? {
+        guard let index = tasks.firstIndex(where: { $0.id == id }) else { return nil }
+        tasks[index].isComplete.toggle()
+        save()
+        return tasks[index]
+    }
+
     private func save() {
         guard let data = try? JSONEncoder().encode(tasks) else { return }
         UserDefaults.standard.set(data, forKey: storageKey)
