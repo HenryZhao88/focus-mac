@@ -16,8 +16,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - UI
     private var overlayController: OverlayWindowController?
-    private var mainWindow: NSWindow?
-
     // MARK: - Combine
     private var cancellables = Set<AnyCancellable>()
 
@@ -49,7 +47,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             .store(in: &cancellables)
 
-        // 4. Start WebSocket server
+        // 4. Warn if API key is missing
+        if Constants.claudeAPIKey.isEmpty {
+            let alert = NSAlert()
+            alert.messageText = "API Key Missing"
+            alert.informativeText = "Set ANTHROPIC_API_KEY in your environment to enable AI monitoring."
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: "OK")
+            alert.runModal()
+        }
+
+        // 5. Start WebSocket server
         wsServer = WebSocketServer()
         wsServer?.onURLChange = { [weak self] url in
             guard let self else { return }
@@ -59,21 +67,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         wsServer?.start()
 
-        // 5. Observe session lifecycle
+        // 6. Observe session lifecycle
         sessionManager.$activeSession
             .receive(on: RunLoop.main)
             .sink { [weak self] session in
                 guard let self else { return }
                 if session != nil {
                     self.overlayController?.show()
-                    Task { @MainActor in
-                        self.escalationManager.startMonitoring()
-                    }
+                    self.escalationManager.startMonitoring()
                 } else {
                     self.overlayController?.hide()
-                    Task { @MainActor in
-                        self.escalationManager.stopMonitoring()
-                    }
+                    self.escalationManager.stopMonitoring()
                 }
             }
             .store(in: &cancellables)
@@ -81,9 +85,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ notification: Notification) {
         wsServer?.stop()
-        Task { @MainActor in
-            escalationManager.stopMonitoring()
-        }
+        escalationManager?.stopMonitoring()
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
@@ -110,7 +112,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.contentView = NSHostingView(rootView: contentView)
         window.center()
         window.makeKeyAndOrderFront(nil)
-        self.mainWindow = window
     }
 
     private func handleStateChange(_ state: EscalationState) {
