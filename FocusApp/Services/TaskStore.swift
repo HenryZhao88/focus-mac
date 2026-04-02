@@ -11,7 +11,7 @@ final class TaskStore: ObservableObject {
     }
 
     func add(title: String) {
-        let trimmed = title.trimmingCharacters(in: .whitespaces)
+        let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
         tasks.append(FocusTask(title: trimmed))
         save()
