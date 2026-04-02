@@ -71,7 +71,9 @@ struct MainWindowView: View {
     }
 
     private func submitNewTask() {
-        taskStore.add(title: newTaskTitle)
+        let trimmed = newTaskTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+        taskStore.add(title: trimmed)
         newTaskTitle = ""
     }
 }
