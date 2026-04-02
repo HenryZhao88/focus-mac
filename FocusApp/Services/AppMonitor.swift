@@ -10,6 +10,11 @@ struct ActivitySnapshot {
 
 protocol AppMonitorProtocol {
     func currentActivity() -> ActivitySnapshot
+    func frontWindowFrame() -> NSRect?
+}
+
+extension AppMonitorProtocol {
+    func frontWindowFrame() -> NSRect? { nil }
 }
 
 final class AppMonitor: AppMonitorProtocol {

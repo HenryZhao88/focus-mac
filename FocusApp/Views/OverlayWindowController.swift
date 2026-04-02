@@ -5,10 +5,12 @@ import SwiftUI
 final class OverlayWindowController: NSWindowController {
     private var escalationManager: EscalationManager
     private var sessionManager: SessionManager
+    private let appMonitor: AppMonitorProtocol
 
-    init(escalationManager: EscalationManager, sessionManager: SessionManager) {
+    init(escalationManager: EscalationManager, sessionManager: SessionManager, appMonitor: AppMonitorProtocol = AppMonitor()) {
         self.escalationManager = escalationManager
         self.sessionManager = sessionManager
+        self.appMonitor = appMonitor
 
         let panel = NSPanel(
             contentRect: NSRect(x: 0, y: 0, width: 320, height: 48),
@@ -49,8 +51,7 @@ final class OverlayWindowController: NSWindowController {
 
     func expandForBlock() {
         guard let screen = NSScreen.main, let panel = window else { return }
-        let monitor = AppMonitor()
-        let targetFrame = monitor.frontWindowFrame() ?? NSRect(
+        let targetFrame = appMonitor.frontWindowFrame() ?? NSRect(
             x: screen.frame.midX - 300,
             y: screen.frame.midY - 200,
             width: 600,
