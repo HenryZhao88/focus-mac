@@ -39,8 +39,10 @@ struct NudgeView: View {
         )
     }
 
+    @MainActor
     private func handleINeedThis() async {
-        let result = await NSApp.keyWindow?.runTextInputAlert(
+        let window = NSApp.keyWindow ?? NSApp.windows.first
+        let result = await window?.runTextInputAlert(
             title: "What do you need it for?",
             message: "Tell the AI why you need \(appName) right now."
         )

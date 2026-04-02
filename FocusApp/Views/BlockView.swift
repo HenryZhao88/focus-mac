@@ -64,6 +64,7 @@ struct BlockView: View {
         .background(Color.black.opacity(0.92))
     }
 
+    @MainActor
     private func submitRequest() async {
         let trimmed = requestText.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { return }
