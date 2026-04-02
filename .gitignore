@@ -1,6 +1,11 @@
+# Environment / secrets
+.env
+
+# Xcode
 *.xcuserstate
 xcuserdata/
 DerivedData/
-.build/
-.DS_Store
-.superpowers/
+*.xcworkspace/xcuserdata/
+
+# Build
+build/

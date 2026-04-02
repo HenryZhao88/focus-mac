@@ -42,6 +42,9 @@ schemes:
     build:
       targets:
         FocusApp: all
+        FocusAppTests: [test]
     run:
-      environmentVariables:
-        OPENAI_API_KEY: YOUR_OPENAI_API_KEY
+      workingDirectory: $(SRCROOT)
+    test:
+      targets:
+        - FocusAppTests
