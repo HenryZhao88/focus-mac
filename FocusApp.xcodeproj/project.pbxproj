@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		03AC3771F9BC31C6F624A320 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233F012932ACA5D4D85D95CD /* AIService.swift */; };
 		088D928739299D0ABC78EC00 /* SessionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA368B2E0E0F6F110E64C0C /* SessionManagerTests.swift */; };
+		10838F21A8F1BA2BBB3A7839 /* EscalationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44F7463ECD13261F8325827 /* EscalationManager.swift */; };
 		10FB665F786996A3458919E7 /* FocusSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AB095DB6ACC184DDA323BF /* FocusSession.swift */; };
 		17A450CABB5F095859F3B842 /* AppMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2199D30D4CFFD7C6CE87D751 /* AppMonitor.swift */; };
+		4924ABA7F3DAC6A0DDD5579A /* EscalationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66FECCB0037E278F47FEBF0 /* EscalationManagerTests.swift */; };
 		55111BFA5F80DF5FDDC41A1B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38478A0BCE2AD2FC38C58A0 /* Task.swift */; };
 		6F90BD817B209EF3CC0B545C /* MainWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDC5D3BE4121EEF4FE026CD /* MainWindowView.swift */; };
 		71F6398B6459CC83264AD2E3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0B39830029435A6963D6F0 /* Constants.swift */; };
@@ -46,7 +48,9 @@
 		812869CC816A54F1E214D5E9 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		8BDC5D3BE4121EEF4FE026CD /* MainWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowView.swift; sourceTree = "<group>"; };
 		95F7669E125B6D9A8852951C /* FocusAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusAppTests.swift; sourceTree = "<group>"; };
+		B44F7463ECD13261F8325827 /* EscalationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EscalationManager.swift; sourceTree = "<group>"; };
 		BDE14446F0A7CACA48E3313D /* FocusAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusAppApp.swift; sourceTree = "<group>"; };
+		C66FECCB0037E278F47FEBF0 /* EscalationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EscalationManagerTests.swift; sourceTree = "<group>"; };
 		CA0973F43928AA7C174EAFB9 /* FocusAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FocusAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E82DBF699FC96B576E166519 /* TaskStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStoreTests.swift; sourceTree = "<group>"; };
 		F1AB095DB6ACC184DDA323BF /* FocusSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSession.swift; sourceTree = "<group>"; };
@@ -77,6 +81,7 @@
 			children = (
 				233F012932ACA5D4D85D95CD /* AIService.swift */,
 				2199D30D4CFFD7C6CE87D751 /* AppMonitor.swift */,
+				B44F7463ECD13261F8325827 /* EscalationManager.swift */,
 				812869CC816A54F1E214D5E9 /* SessionManager.swift */,
 				811B8528E1D403854892E755 /* TaskStore.swift */,
 			);
@@ -113,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				71DCBB9075CF77450A90173E /* AIServiceTests.swift */,
+				C66FECCB0037E278F47FEBF0 /* EscalationManagerTests.swift */,
 				95F7669E125B6D9A8852951C /* FocusAppTests.swift */,
 				5AA368B2E0E0F6F110E64C0C /* SessionManagerTests.swift */,
 				E82DBF699FC96B576E166519 /* TaskStoreTests.swift */,
@@ -211,6 +217,7 @@
 				7D27E767EF4C3A79DDC91DC0 /* AISignal.swift in Sources */,
 				17A450CABB5F095859F3B842 /* AppMonitor.swift in Sources */,
 				71F6398B6459CC83264AD2E3 /* Constants.swift in Sources */,
+				10838F21A8F1BA2BBB3A7839 /* EscalationManager.swift in Sources */,
 				A753AD260653977473757790 /* FocusAppApp.swift in Sources */,
 				10FB665F786996A3458919E7 /* FocusSession.swift in Sources */,
 				6F90BD817B209EF3CC0B545C /* MainWindowView.swift in Sources */,
@@ -225,6 +232,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E3620EBAFA02F3AB3453713 /* AIServiceTests.swift in Sources */,
+				4924ABA7F3DAC6A0DDD5579A /* EscalationManagerTests.swift in Sources */,
 				C2FBAC685DC3249691BDB25C /* FocusAppTests.swift in Sources */,
 				088D928739299D0ABC78EC00 /* SessionManagerTests.swift in Sources */,
 				B9E59400966CC483FF3F49FF /* TaskStoreTests.swift in Sources */,
