@@ -1,0 +1,39 @@
+name: FocusApp
+options:
+  bundleIdPrefix: com.focusapp
+  deploymentTarget:
+    macOS: "13.0"
+  xcodeVersion: "15.0"
+  generateEmptyDirectories: true
+
+targets:
+  FocusApp:
+    type: application
+    platform: macOS
+    sources:
+      - path: FocusApp
+        excludes:
+          - "**/*.entitlements"
+    settings:
+      base:
+        SWIFT_VERSION: "5.9"
+        MACOSX_DEPLOYMENT_TARGET: "13.0"
+        CODE_SIGN_ENTITLEMENTS: FocusApp/FocusApp.entitlements
+        INFOPLIST_FILE: FocusApp/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.focusapp.FocusApp
+        ENABLE_HARDENED_RUNTIME: YES
+    entitlements:
+      path: FocusApp/FocusApp.entitlements
+
+  FocusAppTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - FocusAppTests
+    dependencies:
+      - target: FocusApp
+    settings:
+      base:
+        SWIFT_VERSION: "5.9"
+        MACOSX_DEPLOYMENT_TARGET: "13.0"
+        PRODUCT_BUNDLE_IDENTIFIER: com.focusapp.FocusAppTests
