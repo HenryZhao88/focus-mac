@@ -18,10 +18,8 @@ targets:
       base:
         SWIFT_VERSION: "5.9"
         MACOSX_DEPLOYMENT_TARGET: "13.0"
-        CODE_SIGN_ENTITLEMENTS: FocusApp/FocusApp.entitlements
         INFOPLIST_FILE: FocusApp/Info.plist
         PRODUCT_BUNDLE_IDENTIFIER: com.focusapp.FocusApp
-        ENABLE_HARDENED_RUNTIME: YES
     entitlements:
       path: FocusApp/FocusApp.entitlements
 

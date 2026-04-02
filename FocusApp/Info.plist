@@ -6,14 +6,6 @@
     <string>FocusApp</string>
     <key>CFBundleDisplayName</key>
     <string>Focus</string>
-    <key>CFBundleIdentifier</key>
-    <string>com.focusapp.FocusApp</string>
-    <key>CFBundleVersion</key>
-    <string>1</string>
-    <key>CFBundleShortVersionString</key>
-    <string>1.0</string>
-    <key>NSPrincipalClass</key>
-    <string>NSApplication</string>
     <key>NSAccessibilityUsageDescription</key>
     <string>Focus needs Accessibility access to read window titles and detect which app is active.</string>
     <key>LSMinimumSystemVersion</key>
