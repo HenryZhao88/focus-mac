@@ -104,11 +104,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
             .store(in: &cancellables)
-
-        // 8. Clean up any /etc/hosts entries left by a previous crash
-        if BlocklistManager.hasStaleEntries() {
-            blocklistManager.deactivate()
-        }
     }
 
     func applicationWillTerminate(_ notification: Notification) {

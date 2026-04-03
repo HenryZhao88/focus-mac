@@ -32,6 +32,7 @@ final class BlocklistManager {
     private static let hostsTag = "# FocusApp"
     private static let httpPort: NWEndpoint.Port = 8080
 
+    private(set) var isActive = false
     private var httpListener: NWListener?
     private let serverQueue = DispatchQueue(label: "com.focusapp.blocklist")
 
@@ -58,14 +59,19 @@ final class BlocklistManager {
             "killall -HUP mDNSResponder",
         ].joined(separator: " && ")
         guard runPrivileged(bash: command) else { return false }
+        isActive = true
         startHTTPServer()
         return true
     }
 
     /// Removes all Focus entries from /etc/hosts and stops the HTTP server.
+    /// No-ops if blocking was never activated, so app quit without an active
+    /// session never triggers a password prompt.
     /// macOS typically caches the admin auth for ~5 min after activate(),
     /// so the user won't see a second prompt if they stop the session soon after starting.
     func deactivate() {
+        guard isActive else { return }
+        isActive = false
         stopHTTPServer()
         let command = [
             "sed -i '' '/\(Self.hostsTag)/d' /etc/hosts",
