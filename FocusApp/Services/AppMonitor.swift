@@ -51,12 +51,10 @@ final class AppMonitor: AppMonitorProtocol {
 
         let cgRect = CGRect(x: bounds["X"] ?? 0, y: bounds["Y"] ?? 0,
                             width: bounds["Width"] ?? 0, height: bounds["Height"] ?? 0)
-        let desktopFrame = NSScreen.screens.map(\.frame).reduce(into: CGRect.null) { partial, frame in
-            partial = partial.union(frame)
-        }
-        guard !desktopFrame.isNull else { return nil }
+        let primaryScreenHeight = NSScreen.screens.first?.frame.height ?? 0
+        guard primaryScreenHeight > 0 else { return nil }
         return NSRect(x: cgRect.origin.x,
-                      y: desktopFrame.maxY - cgRect.origin.y - cgRect.height,
+                      y: primaryScreenHeight - cgRect.origin.y - cgRect.height,
                       width: cgRect.width,
                       height: cgRect.height)
     }

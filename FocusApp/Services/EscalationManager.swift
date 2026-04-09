@@ -76,8 +76,14 @@ final class EscalationManager: ObservableObject {
                     // Browser: allowlist just this site, not the whole browser
                     sessionManager.addToAllowlist(host)
                 } else if let bundleID = activity.bundleID {
-                    // Non-browser app: allowlist the whole app
-                    sessionManager.addToAllowlist(bundleID)
+                    let knownBrowsers: Set<String> = ["com.google.chrome", "com.apple.safari", "com.apple.safaritechnologypreview", "org.mozilla.firefox", "com.brave.browser", "com.microsoft.edgemac", "company.thebrowser.browser"]
+                    if knownBrowsers.contains(bundleID.lowercased()) {
+                        // Deny blanket allowlist of browser if URL isn't captured
+                        return .denied(reason: "Content not fully loaded. Wait a moment and try again.")
+                    } else {
+                        // Non-browser app: allowlist the whole app
+                        sessionManager.addToAllowlist(bundleID)
+                    }
                 }
                 nudgeTimer?.invalidate()
                 state = .monitoring
@@ -95,7 +101,7 @@ final class EscalationManager: ObservableObject {
     // Internal: exposed for testing
     func runCheck() async {
         guard let session = sessionManager.activeSession else { return }
-        guard case .monitoring = state else { return }
+        guard case .blocking != state else { return } // Stop checking if already hard-blocked
 
         let activity = appMonitor.currentActivity()
 
@@ -113,10 +119,14 @@ final class EscalationManager: ObservableObject {
             )
             switch signal {
             case .onTask:
-                break
+                if case .nudging = state {
+                    dismissNudge()
+                }
             case .drifting, .offTask:
-                state = .nudging(since: Date(), appName: activity.appName)
-                scheduleEscalation()
+                if case .monitoring = state {
+                    state = .nudging(since: Date(), appName: activity.appName)
+                    scheduleEscalation()
+                }
             }
         } catch {
             // Don't disrupt user on API errors

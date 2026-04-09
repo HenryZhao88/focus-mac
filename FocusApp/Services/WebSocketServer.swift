@@ -73,6 +73,11 @@ final class WebSocketServer {
                 return
             }
 
+            if isComplete && data == nil {
+                self.fireCallback(nil)
+                return
+            }
+
             // Parse WebSocket opcode from metadata
             if let context,
                let wsMetadata = context.protocolMetadata(definition: NWProtocolWebSocket.definition) as? NWProtocolWebSocket.Metadata,

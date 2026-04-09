@@ -30,11 +30,8 @@ final class BlocklistManager {
     ]
 
     private static let hostsTag = "# FocusApp"
-    private static let httpPort: NWEndpoint.Port = 8080
 
     private(set) var isActive = false
-    private var httpListener: NWListener?
-    private let serverQueue = DispatchQueue(label: "com.focusapp.blocklist")
 
     // MARK: - Public
 
@@ -54,13 +51,13 @@ final class BlocklistManager {
             .joined(separator: " && ")
         let command = [
             "sed -i '' '/\(Self.hostsTag)/d' /etc/hosts",
+            "echo '' >> /etc/hosts",
             echoLines,
             "dscacheutil -flushcache",
             "killall -HUP mDNSResponder",
         ].joined(separator: " && ")
         guard runPrivileged(bash: command) else { return false }
         isActive = true
-        startHTTPServer()
         return true
     }
 
@@ -72,43 +69,12 @@ final class BlocklistManager {
     func deactivate() {
         guard isActive else { return }
         isActive = false
-        stopHTTPServer()
         let command = [
             "sed -i '' '/\(Self.hostsTag)/d' /etc/hosts",
             "dscacheutil -flushcache",
             "killall -HUP mDNSResponder",
         ].joined(separator: " && ")
         runPrivileged(bash: command)
-    }
-
-    // MARK: - HTTP server (handles HTTP requests to blocked domains on port 8080)
-    // Note: HTTPS sites (YouTube, Netflix, etc.) show a browser connection error
-    // rather than this page — the overlay in the app is the primary blocked UX.
-
-    private func startHTTPServer() {
-        guard let listener = try? NWListener(using: .tcp, on: Self.httpPort) else { return }
-        httpListener = listener
-        listener.newConnectionHandler = { [weak self] conn in
-            self?.handleConnection(conn)
-        }
-        listener.start(queue: serverQueue)
-    }
-
-    private func stopHTTPServer() {
-        httpListener?.cancel()
-        httpListener = nil
-    }
-
-    private func handleConnection(_ connection: NWConnection) {
-        connection.start(queue: serverQueue)
-        // Drain the incoming request, then respond with the blocked page
-        connection.receive(minimumIncompleteLength: 1, maximumLength: 4096) { _, _, _, _ in
-            let body = Self.blockedPageHTML.data(using: .utf8)!
-            let header = "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: \(body.count)\r\nConnection: close\r\n\r\n"
-            connection.send(content: header.data(using: .utf8)! + body, completion: .contentProcessed { _ in
-                connection.cancel()
-            })
-        }
     }
 
     // MARK: - Privileged shell
@@ -124,45 +90,4 @@ final class BlocklistManager {
         NSAppleScript(source: source)?.executeAndReturnError(&error)
         return error == nil
     }
-
-    // MARK: - Blocked page HTML
-
-    private static let blockedPageHTML = """
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Blocked by Focus</title>
-      <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-          background: #0a0a0a;
-          color: #fff;
-          height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-        }
-        .container { max-width: 480px; padding: 40px 24px; }
-        .icon { font-size: 48px; margin-bottom: 24px; }
-        h1 { font-size: 22px; font-weight: 700; margin-bottom: 12px; color: #ff6584; }
-        p { font-size: 15px; line-height: 1.6; color: rgba(255,255,255,0.6); }
-        .brand { color: rgba(255,255,255,0.9); font-weight: 600; }
-      </style>
-    </head>
-    <body>
-      <div class="container">
-        <div class="icon">🚫</div>
-        <h1>This site is blocked</h1>
-        <p>
-          <span class="brand">Focus</span> blocked this page because it doesn't relate
-          to what you're currently working on. Finish your session first, then come back.
-        </p>
-      </div>
-    </body>
-    </html>
-    """
 }

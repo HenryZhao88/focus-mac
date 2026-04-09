@@ -50,7 +50,8 @@ final class AIService: AIServiceProtocol {
     // MARK: - Parsing (internal for testability)
 
     func parseSignal(_ raw: String) -> AISignal {
-        AISignal(rawValue: raw.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()) ?? .onTask
+        let cleaned = raw.trimmingCharacters(in: .whitespacesAndNewlines.union(.punctuationCharacters)).lowercased()
+        return AISignal(rawValue: cleaned) ?? .onTask
     }
 
     func parseGatekeeperResponse(_ raw: String) -> GatekeeperDecision {
