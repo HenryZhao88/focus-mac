@@ -27,6 +27,14 @@ final class BlocklistManager {
         "9gag.com", "www.9gag.com",
         "tumblr.com", "www.tumblr.com",
         "buzzfeed.com", "www.buzzfeed.com",
+        // Anime
+        "hianime.to", "www.hianime.to",
+        "aniwatch.to", "www.aniwatch.to",
+        "anix.to", "www.anix.to",
+        "aniwave.to", "www.aniwave.to",
+        "anixstream.to", "www.anixstream.to",
+        "9animetv.to", "www.9animetv.to",
+        "aniwatchtv.to", "www.aniwatchtv.to",
     ]
 
     private static let hostsTag = "# FocusApp"
